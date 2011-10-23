@@ -29,7 +29,7 @@ public final class IconCache {
 
 	public Icon getIcon(final String name) {
 		IconCacheEntry entry;
-		if (cache.containsKey(cache)) {
+		if (cache.containsKey(name)) {
 			entry = cache.get(name);
 		} else {
 			try {

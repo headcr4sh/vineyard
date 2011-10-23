@@ -1,10 +1,8 @@
 package com.googlecode.vineyard;
 
+import javax.jdo.PersistenceManager;
+
 import com.google.inject.AbstractModule;
-import com.googlecode.vineyard.ui.IconCache;
-import com.googlecode.vineyard.ui.MainFrame;
-import com.googlecode.vineyard.ui.MenuBar;
-import com.googlecode.vineyard.ui.WineListPanel;
 
 /**
  * GUICE Injector module
@@ -15,13 +13,7 @@ public class VineyardModule extends AbstractModule {
 	@Override
 	protected void configure() {
 
-		bind(VineyardApp.class);
-
-		bind(IconCache.class);
-
-		bind(MainFrame.class);
-		bind(MenuBar.class);
-		bind(WineListPanel.class);
+		bind(PersistenceManager.class).toProvider(VineyardPersistenceManagerProvider.class);
 
 	}
 
