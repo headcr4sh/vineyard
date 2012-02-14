@@ -1,6 +1,8 @@
 package com.googlecode.vineyard;
 
 import javax.jdo.PersistenceManager;
+import javax.swingx.StarRatingPanel;
+import javax.swingx.StarRatingPanelProvider;
 
 import com.google.inject.AbstractModule;
 
@@ -14,6 +16,7 @@ public class VineyardModule extends AbstractModule {
 	protected void configure() {
 
 		bind(PersistenceManager.class).toProvider(VineyardPersistenceManagerProvider.class);
+		bind(StarRatingPanel.class).toProvider(StarRatingPanelProvider.class);
 
 	}
 

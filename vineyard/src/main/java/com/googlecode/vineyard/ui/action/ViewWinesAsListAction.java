@@ -9,6 +9,7 @@ import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 
+import com.googlecode.vineyard.model.Wine;
 import com.googlecode.vineyard.ui.EditWineDialogFactory;
 import com.googlecode.vineyard.ui.EditWineDialogFactory.DialogType;
 import com.googlecode.vineyard.ui.IconCache;
@@ -18,24 +19,31 @@ import com.googlecode.vineyard.ui.IconCache;
  * @author Benjamin P. Jung
  */
 @Singleton
-public class NewWineAction extends AbstractAction {
+public class ViewWinesAsListAction extends AbstractAction {
 
 	/** @see java.io.Serializable */
-	private static final long serialVersionUID = -2600248882982285644L;
+	private static final long serialVersionUID = -4135157974068598471L;
 
-	@Inject EditWineDialogFactory dialogFactory;
 	@Inject private IconCache iconCache;
+
+	// c-tor
+	public ViewWinesAsListAction() {
+		super();
+	}
 
 	@Inject
 	protected void postConstruct() {
-		putValue(NAME, "Add new wine...");
-		putValue(SMALL_ICON, iconCache.getIcon("16x16/plus"));
+		putValue(NAME, "View as list");
+		if (System.getProperty("os.name").contains("Mac OS X")) {
+			putValue(SMALL_ICON, new ImageIcon(Toolkit.getDefaultToolkit().getImage("NSImage://NSListViewTemplate"))); 
+		} else {
+			putValue(SMALL_ICON, iconCache.getIcon("16x16/edit-alignment-justify"));
+		}
 	}
 
 	@Override
 	public void actionPerformed(final ActionEvent evt) {
-		final JDialog dialog = dialogFactory.createDialog(DialogType.CREATE, null);
-		dialog.setVisible(true);
+		// TODO Implement
 	}
 
 }

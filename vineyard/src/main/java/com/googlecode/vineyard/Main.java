@@ -40,10 +40,11 @@ class Main {
 			logger.error(e.getLocalizedMessage(), e);
 			System.exit(1);
 		}
-		
+
 		final Injector injector = Guice.createInjector(new VineyardModule());
 		final VineyardApp app = injector.getInstance(VineyardApp.class);
 		app.start();
+
 	}
 
 }

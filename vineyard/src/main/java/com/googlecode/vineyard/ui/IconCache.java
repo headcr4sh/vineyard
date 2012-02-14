@@ -10,6 +10,12 @@ import javax.inject.Singleton;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.googlecode.vineyard.model.Country;
+import com.googlecode.vineyard.model.WineCategory;
+
 /**
  * Quick and Dirty implementation of a nice Icon Cache class for the
  * famfamfam icons
@@ -19,6 +25,8 @@ import javax.swing.ImageIcon;
 @Singleton
 public final class IconCache {
 
+	private final Logger logger = LoggerFactory.getLogger(getClass());
+
 	private final Map<String, IconCacheEntry> cache;
 
 	// Default c-tor
@@ -26,8 +34,7 @@ public final class IconCache {
 		cache = new HashMap<String, IconCacheEntry>();
 	}
 
-
-	public Icon getIcon(final String name) {
+	public ImageIcon getIcon(final String name) {
 		IconCacheEntry entry;
 		if (cache.containsKey(name)) {
 			entry = cache.get(name);
@@ -61,12 +68,46 @@ public final class IconCache {
 
 	}
 
+	public Icon getIcon(final Country country) {
+		String iconName = country.getIso3166_1_alpha_2();
+		return getIcon(String.format("flags/%s", iconName));
+	}
+
+	public Image getImage(final String name) {
+		return getIcon(name).getImage();
+	}
+
+	public Icon getIcon(final WineCategory wineCategory) {
+
+		String iconName;
+
+		switch (wineCategory) {
+		case RED:
+			iconName = "16x16/glass";
+			break;
+		case WHITE:
+			iconName = "16x16/glass-white-liquid";
+			break;
+		case ROSE:
+			iconName = "16x16/glass-pink-liquid";
+			break;
+		case ORANGE:
+			iconName = "16x16/glass-orange-liquid";
+			break;
+		default:
+			iconName = "16x16/glass-empty";
+			break;
+		}
+
+		return getIcon(iconName);
+	}
+
 	/**
 	 * Representation of a single entry in the icon cache
 	 * @author Benjamin P. Jung
 	 */
 	private class IconCacheEntry {
-		public final Icon icon16;
+		public final ImageIcon icon16;
 
 		public IconCacheEntry(final String name) throws IOException {
 			this.icon16 = new ImageIcon(createImage(name));
@@ -78,6 +119,7 @@ public final class IconCache {
 			try {
 				return ImageIO.read(cl.getResourceAsStream(filename));
 			} catch (final IllegalArgumentException e) {
+				logger.error(String.format("File not found: %s", filename));
 				throw e;
 			}
 

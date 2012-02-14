@@ -1,50 +1,57 @@
 package com.googlecode.vineyard.model;
 
+import java.awt.Color;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.PrimaryKey;
 
-/**
- * 
- * @author Benjamin P. Jung
- */
-@PersistenceCapable
-public class Rating {
+public class Grape {
 
 	/** Property Changes Support */
 	private final PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
-	// Properties
-	// @PrimaryKey // TODO Well, well...
-	@Persistent private Wine wine;
-	@Persistent private Integer taste;
+	@Persistent private String name;
+	@Persistent private String description;
+	@Persistent private Color color;
 
-
-	// ---- GETTERS AND SETTERS ------------------------------------------------
-
-	public Wine getWine() {
-		return this.wine;
+	@Override
+	public String toString() {
+		return String.format("[Grape] %s", getName());
 	}
 
-	public void setWine(Wine wine) {
-		final Wine oldWine = this.wine;
-		this.wine = wine;
-		changeSupport.firePropertyChange("wine", oldWine, wine);
+	// ---- SETTERS AND GETTERS ------------------------------------------------
+
+	public String getName() {
+		return name;
 	}
 
-	public Integer getTaste() {
-		return this.taste;
+	public void setName(String name) {
+		final String oldName = this.name;
+		this.name = name;
+		changeSupport.firePropertyChange("name", oldName, name);
 	}
 
-	public void setTaste(Integer taste) {
-		final Integer oldTaste = this.taste;
-		this.taste = taste;
-		changeSupport.firePropertyChange("taste", oldTaste, taste);
+	public String getDescription() {
+		return this.description;
 	}
-	
+
+	public void setDescription(final String description) {
+		final String oldDescription = this.description;
+		this.description = description;
+		changeSupport.firePropertyChange("description", oldDescription, description);
+	}
+
+	public Color getColor() {
+		return this.color;
+	}
+
+	public void setColor(final Color color) {
+		final Color oldColor = this.color;
+		this.color = color;
+		changeSupport.firePropertyChange("color", oldColor, color);
+	}
+
 	// ---- PROPERTY CHANGE SUPPORT --------------------------------------------
 
 	public void addPropertyChangeListener(final PropertyChangeListener listener) {

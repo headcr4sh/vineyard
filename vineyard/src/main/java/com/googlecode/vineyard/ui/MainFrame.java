@@ -3,6 +3,7 @@ package com.googlecode.vineyard.ui;
 import java.awt.BorderLayout;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JToolBar;
@@ -11,6 +12,7 @@ import javax.swing.JToolBar;
  * 
  * @author Benjamin P. Jung
  */
+@Singleton
 public class MainFrame extends JFrame {
 
 	/** @see java.io.Serializable */
@@ -18,6 +20,8 @@ public class MainFrame extends JFrame {
 
 	public MainFrame() {
 		super();
+		getRootPane().putClientProperty("apple.awt.brushMetalLook", Boolean.TRUE);
+		getRootPane().putClientProperty("apple.awt.draggableWindowBackground", Boolean.TRUE);
 	}
 
 	@Inject

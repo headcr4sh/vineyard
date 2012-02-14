@@ -7,7 +7,7 @@
 	<groupId>com.googlecode.vineyard</groupId>
 	<artifactId>vineyard</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>Vineyard</name>
 	<url>https://code.google.com/p/vineyard/</url>
 	<inceptionYear>2011</inceptionYear>
@@ -48,7 +48,6 @@
 		<joda-time.version>2.0</joda-time.version>
 		<logback.version>0.9.30</logback.version>
 		<miglayout.version>3.7.4</miglayout.version>
-		<neodatis-odb.version>1.9.30.689</neodatis-odb.version>
 		<slf4j-api.version>1.6.2</slf4j-api.version>
 		<swingx.version>1.6.2-2</swingx.version>
 		<testng.version>6.2.1</testng.version>
@@ -99,7 +98,6 @@
 		<url>http://terreon.de/</url>
 	</organization>
 
-	<issueManagement />
 
 	<developers>
 		<developer>
@@ -257,7 +255,12 @@
 
 	</build>
 
-	<repositories />
+	<repositories>
+		<repository>
+			<id>source.db4o</id>
+			<url>http://source.db4o.com/maven</url>
+		</repository>
+	</repositories>
 
 	<pluginRepositories />
 
@@ -277,6 +280,10 @@
 		<dependency>
 			<groupId>com.jgoodies</groupId>
 			<artifactId>looks</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.jgoodies</groupId>
+			<artifactId>validation</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.miglayout</groupId>
@@ -300,11 +307,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.datanucleus</groupId>
-			<artifactId>datanucleus-neodatis</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.neodatis.odb</groupId>
-			<artifactId>neodatis-odb</artifactId>
+			<artifactId>datanucleus-db4o</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -444,15 +447,8 @@
 			</dependency>
 			<dependency>
 				<groupId>org.datanucleus</groupId>
-				<artifactId>datanucleus-neodatis</artifactId>
+				<artifactId>datanucleus-db4o</artifactId>
 				<version>${datanucleus.version}</version>
-				<type>jar</type>
-				<scope>compile</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.neodatis.odb</groupId>
-				<artifactId>neodatis-odb</artifactId>
-				<version>${neodatis-odb.version}</version>
 				<type>jar</type>
 				<scope>compile</scope>
 			</dependency>

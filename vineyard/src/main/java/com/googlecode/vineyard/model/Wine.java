@@ -1,44 +1,88 @@
 package com.googlecode.vineyard.model;
 
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.math.BigDecimal;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * 
  * @author Benjamin P. Jung
  */
 @PersistenceCapable
-public class Wine {
+@XmlRootElement(name = "wine")
+public class Wine implements Comparable<Wine> {
 
 	/** Property Changes Support */
 	private final PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
 
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
+	private Long wineId;
+
 	// Properties
-	@Persistent private Vineyard vineyard;
+	@Persistent private String articleId;
 	@Persistent private String name;
-	@Persistent private int year;
-	@Persistent private WineCategory category;
+	@Persistent private Country country;
+	@Persistent private String productionArea;
+	@Persistent private Integer year;
+	@Persistent private String producer; // TODO: Should be of type "Producer"!
+	// TODO Rebsorten / grapes
+	@Persistent private WineCategory category; // == color !?
+	@Persistent private BufferedImage image;
+	@Persistent private String description;
 	@Persistent private BigDecimal priceEur;
-	@Persistent private Rating rating;
+
+	@Override
+	public String toString() {
+		return String.format("[Wine] %s", getName());
+	}
+
+	@Override
+	public int compareTo(Wine wine) {
+		return this.name.compareTo(wine.name);
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o == null || !(o instanceof Wine)) {
+			return false;
+		}
+		return this.articleId.equals(((Wine) o).articleId);
+	}
+
+	@Override
+	public int hashCode() {
+		return this.articleId.hashCode();
+	}
 
 
 	// ---- GETTERS AND SETTERS ------------------------------------------------
 
-	public Vineyard getVineyard() {
-		return vineyard;
+	@XmlID
+	@XmlAttribute(name = "article-id", required = true)
+	public String getArticleId() {
+		return this.articleId;
 	}
 
-	public void setVineyard(Vineyard vineyard) {
-		final Vineyard oldVineyard = this.vineyard;
-		this.vineyard = vineyard;
-		changeSupport.firePropertyChange("vineyard", oldVineyard, vineyard);
+	public void setArticleId(final String articleId) {
+		final String oldArticleId = this.articleId;
+		this.articleId = articleId;
+		changeSupport.firePropertyChange("articleId", oldArticleId, articleId);
 	}
 
+	@XmlElement(name = "name", required = true)
 	public String getName() {
 		return name;
 	}
@@ -49,16 +93,62 @@ public class Wine {
 		changeSupport.firePropertyChange("name", oldName, name);
 	}
 
-	public int getYear() {
+	@XmlElement(name = "country", required = true)
+	public Country getCountry() {
+		return country;
+	}
+
+	public void setCountry(Country country) {
+		final Country oldCountry = this.country;
+		this.country = country;
+		changeSupport.firePropertyChange("country", oldCountry, country);
+	}
+
+	@XmlElement(name = "year", required = true)
+	public Integer getYear() {
 		return year;
 	}
 
-	public void setYear(int year) {
-		final int oldYear = this.year;
+	public void setYear(Integer year) {
+		final Integer oldYear = this.year;
 		this.year = year;
 		changeSupport.firePropertyChange("year", oldYear, year);
 	}
 
+	@XmlElement(name = "description", required = false)
+	public String getDescription() {
+		return this.description;
+	}
+
+	public void setDescription(final String description) {
+		final String oldDescription = description;
+		this.description = description;
+		changeSupport.firePropertyChange("description", oldDescription, description);
+	}
+
+	@XmlElement(name = "production-area", required = false)
+	public String getProductionArea() {
+		return this.productionArea;
+	}
+
+	public void setProductionArea(final String productionArea) {
+		final String oldProductionArea = this.productionArea;
+		this.productionArea = productionArea;
+		changeSupport.firePropertyChange("productionArea", oldProductionArea, productionArea);
+	}
+
+	@XmlElement(name = "producer", required = false)
+	public String getProducer() {
+		return this.producer;
+	}
+
+	public void setProducer(final String producer) {
+		final String oldProducer = this.producer;
+		this.producer = producer;
+		changeSupport.firePropertyChange("producer", oldProducer, producer);
+	}
+
+	@XmlElement(name = "category", required = true)
 	public WineCategory getCategory() {
 		return category;
 	}
@@ -69,6 +159,7 @@ public class Wine {
 		changeSupport.firePropertyChange("category", oldCategory, category);
 	}
 
+	@XmlElement(name = "price-eur", required = false)
 	public BigDecimal getPriceEur() {
 		return priceEur;
 	}
@@ -79,15 +170,17 @@ public class Wine {
 		changeSupport.firePropertyChange("priceEur", oldPriceEur, priceEur);
 	}
 
-	public Rating getRating() {
-		return rating;
+	@XmlTransient
+	public BufferedImage getImage() {
+		return this.image;
 	}
 
-	public void setRating(Rating rating) {
-		final Rating oldRating = this.rating;
-		this.rating = rating;
-		changeSupport.firePropertyChange("rating", oldRating, rating);
+	public void setImage(final BufferedImage image) {
+		final BufferedImage oldImage = this.image;
+		this.image = image;
+		changeSupport.firePropertyChange("image", oldImage, image);
 	}
+
 
 	// ---- PROPERTY CHANGE SUPPORT --------------------------------------------
 

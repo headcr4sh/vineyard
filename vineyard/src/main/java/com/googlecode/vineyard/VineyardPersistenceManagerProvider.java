@@ -39,10 +39,10 @@ public class VineyardPersistenceManagerProvider implements Provider<PersistenceM
 		enhancer.enhance();
 
 		try {
-			dbFile = new File(cfg.getStorageHome(), "neodatisdb.odb");
+			dbFile = new File(cfg.getStorageHome(), "wines.db4o");
 			final URL dbFileUrl = dbFile.toURI().toURL();
 			properties.setProperty("javax.jdo.PersistenceManagerFactoryClass", "org.datanucleus.api.jdo.JDOPersistenceManagerFactory");
-			properties.setProperty("datanucleus.ConnectionURL", String.format("neodatis:%s", dbFileUrl.toExternalForm()));
+			properties.setProperty("datanucleus.ConnectionURL", String.format("db4o:%s", dbFileUrl.toExternalForm()));
 			pmFactory = JDOHelper.getPersistenceManagerFactory(properties);
 		} catch (final Exception ex) {
 			// TODO Proper exception handling would be nice
