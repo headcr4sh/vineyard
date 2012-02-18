@@ -34,15 +34,14 @@ public class CountryComboBox extends JComboBox {
 
 		@Override
 		public Component getListCellRendererComponent(JList arg0, Object object, int arg2, boolean arg3, boolean arg4) {
-
 			super.getListCellRendererComponent(arg0, object, arg2, arg3, arg4);
-
-			final Country country = (Country) object;
-			setText(country.getName());
-			setIcon(iconCache.getIcon(country));
+			if (object != null) {
+				final Country country = (Country) object;
+				setText(country.getName());
+				setIcon(iconCache.getIcon(country));
+			}
 			return this;
 		}
 
-		
 	}
 }

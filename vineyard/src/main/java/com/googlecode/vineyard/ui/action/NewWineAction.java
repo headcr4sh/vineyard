@@ -1,12 +1,10 @@
 package com.googlecode.vineyard.ui.action;
 
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.swing.AbstractAction;
-import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 
 import com.googlecode.vineyard.ui.EditWineDialogFactory;

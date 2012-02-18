@@ -35,12 +35,12 @@ public class WineCategoryComboBox extends JComboBox {
 
 		@Override
 		public Component getListCellRendererComponent(JList arg0, Object object, int arg2, boolean arg3, boolean arg4) {
-
 			super.getListCellRendererComponent(arg0, object, arg2, arg3, arg4);
-
-			final WineCategory category = (WineCategory) object;
-			setText(category.getStringValue());
-			setIcon(iconCache.getIcon(category));
+			if (object != null) {
+				final WineCategory category = (WineCategory) object;
+				setText(category.getStringValue());
+				setIcon(iconCache.getIcon(category));
+			}
 			return this;
 		}
 

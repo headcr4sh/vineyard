@@ -3,9 +3,15 @@ package com.googlecode.vineyard.model;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Arrays;
 
+import javax.imageio.ImageIO;
 import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
@@ -24,6 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Wine implements Comparable<Wine> {
 
 	/** Property Changes Support */
+	@NotPersistent
 	private final PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
 
@@ -40,9 +47,12 @@ public class Wine implements Comparable<Wine> {
 	@Persistent private String producer; // TODO: Should be of type "Producer"!
 	// TODO Rebsorten / grapes
 	@Persistent private WineCategory category; // == color !?
-	@Persistent private BufferedImage image;
+	@Persistent private byte[] imageData;
 	@Persistent private String description;
 	@Persistent private BigDecimal priceEur;
+	@Persistent private Rating rating;
+
+	@NotPersistent private transient BufferedImage image;
 
 	@Override
 	public String toString() {
@@ -56,15 +66,28 @@ public class Wine implements Comparable<Wine> {
 
 	@Override
 	public boolean equals(Object o) {
+
 		if (o == null || !(o instanceof Wine)) {
 			return false;
 		}
-		return this.articleId.equals(((Wine) o).articleId);
+
+		final Wine otherWine = (Wine) o;
+		if (wineId != null && otherWine.wineId != null) {
+			return wineId.equals(otherWine.wineId);
+		} else {
+			// TODO Implement!
+			return super.equals(o);
+		}
 	}
 
 	@Override
 	public int hashCode() {
-		return this.articleId.hashCode();
+		if (this.wineId != null) {
+			return this.wineId.hashCode();
+		} else {
+			// TODO Implement
+			return super.hashCode();
+		}
 	}
 
 
@@ -170,14 +193,46 @@ public class Wine implements Comparable<Wine> {
 		changeSupport.firePropertyChange("priceEur", oldPriceEur, priceEur);
 	}
 
+	public Rating getRating() {
+		if (this.rating == null) {
+			this.rating = new Rating();
+		}
+		return rating;
+	}
+
 	@XmlTransient
 	public BufferedImage getImage() {
+		if (this.image == null) {
+			if (imageData != null) {
+				final byte[] bytes = Arrays.copyOf(imageData, imageData.length);
+				final ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+				try {
+					this.image = ImageIO.read(bais);
+				} catch (IOException e) {
+					// TODO Handle exception!!!
+					e.printStackTrace();
+				}
+			}
+		}
 		return this.image;
 	}
 
 	public void setImage(final BufferedImage image) {
 		final BufferedImage oldImage = this.image;
 		this.image = image;
+		if (this.image == null) {
+			imageData = null;
+		} else {
+			final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			try {
+				ImageIO.write(this.image, "png", baos);
+				baos.flush();
+			} catch (IOException e) {
+				// TODO Handle exception!!!
+				e.printStackTrace();
+			}
+			imageData = baos.toByteArray();
+		}
 		changeSupport.firePropertyChange("image", oldImage, image);
 	}
 

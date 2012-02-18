@@ -64,9 +64,7 @@ public class EditWineDialogFactory implements java.io.Serializable {
 		));
 
 		final EditWinePanel editPanel = injector.getInstance(EditWinePanel.class);
-		if (wine != null) {
-			editPanel.setWine(wine);
-		}
+		editPanel.setWine(wine == null ? new Wine() : wine);
 		contentPane.add(editPanel, "growx, span, wrap");
 		contentPane.add(new JSeparator(SwingConstants.HORIZONTAL), "growx, span, wrap");
 		final JButton helpButton = new JButton();

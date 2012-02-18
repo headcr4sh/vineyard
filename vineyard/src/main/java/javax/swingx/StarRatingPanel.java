@@ -4,12 +4,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Polygon;
 
-import javax.swing.Icon;
 import javax.swing.JComponent;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 
 
 /**

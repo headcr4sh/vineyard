@@ -3,6 +3,7 @@ package com.googlecode.vineyard.model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
@@ -17,23 +18,14 @@ public class Rating {
 	/** Property Changes Support */
 	private final PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
-	// Properties
-	// @PrimaryKey // TODO Well, well...
-	@Persistent private Wine wine;
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
+	private Long ratingId;
+
 	@Persistent private Integer taste;
 
 
 	// ---- GETTERS AND SETTERS ------------------------------------------------
-
-	public Wine getWine() {
-		return this.wine;
-	}
-
-	public void setWine(Wine wine) {
-		final Wine oldWine = this.wine;
-		this.wine = wine;
-		changeSupport.firePropertyChange("wine", oldWine, wine);
-	}
 
 	public Integer getTaste() {
 		return this.taste;

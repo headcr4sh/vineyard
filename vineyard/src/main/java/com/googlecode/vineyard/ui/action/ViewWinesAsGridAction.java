@@ -7,11 +7,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 
-import com.googlecode.vineyard.model.Wine;
-import com.googlecode.vineyard.ui.EditWineDialogFactory;
-import com.googlecode.vineyard.ui.EditWineDialogFactory.DialogType;
 import com.googlecode.vineyard.ui.IconCache;
 
 /**

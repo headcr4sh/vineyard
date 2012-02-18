@@ -13,7 +13,7 @@ import javax.swing.table.TableCellEditor;
  * 
  * @author Benjamin P. Jung
  */
-public class StarRatingTableCellEditor extends AbstractCellEditor implements TableCellEditor {
+public abstract class StarRatingTableCellEditor extends AbstractCellEditor implements TableCellEditor {
 
 	@Inject private StarRatingPanel starRatingPanel;
 	
@@ -30,10 +30,13 @@ public class StarRatingTableCellEditor extends AbstractCellEditor implements Tab
 		return Integer.valueOf(starRatingPanel.getSelected());
 	}
 
+	protected abstract int getRating(Object value);
+
 	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
 		final Color bgColor = UIManager.getColor("Table.selectionBackground");
 		starRatingPanel.setBackground(bgColor);
+		starRatingPanel.setSelected(getRating(value));
 		return starRatingPanel;
 	}
 

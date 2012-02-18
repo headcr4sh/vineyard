@@ -5,12 +5,9 @@ import java.awt.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.swing.AbstractAction;
-import javax.swing.JDialog;
 
 import com.googlecode.vineyard.VineyardApp;
 import com.googlecode.vineyard.model.Wine;
-import com.googlecode.vineyard.ui.EditWineDialogFactory;
-import com.googlecode.vineyard.ui.EditWineDialogFactory.DialogType;
 import com.googlecode.vineyard.ui.IconCache;
 
 /**

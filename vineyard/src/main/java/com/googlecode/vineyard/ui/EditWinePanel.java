@@ -14,7 +14,6 @@ import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,7 +26,6 @@ import javax.swingx.StarRatingPanel;
 
 import com.google.inject.Injector;
 import com.googlecode.vineyard.model.Country;
-import com.googlecode.vineyard.model.Producer;
 import com.googlecode.vineyard.model.Wine;
 import com.googlecode.vineyard.model.WineCategory;
 
@@ -45,7 +43,11 @@ public class EditWinePanel extends JPanel {
 	public static final int MAX_IMAGE_WIDTH = 176;
 	public static final int MAX_IMAGE_HEIGHT = 320;
 	public static final float DEFAULT_IMAGE_RATIO = ((float)  MAX_IMAGE_WIDTH) / ((float) MAX_IMAGE_HEIGHT);
-	
+
+	private static final WineCategory DEFAULT_CATEGORY = WineCategory.RED;
+	private static final Country DEFAULT_COUNTRY = Country.GERMANY;
+
+
 	/** IoC injector */
 	@Inject private Injector injector;
 
@@ -179,16 +181,19 @@ public class EditWinePanel extends JPanel {
 
 		this.wine = wine;
 
-		if (wine.getImage() != null) {
-			this.imageLabel.setIcon(new ImageIcon(wine.getImage()));
-		}
+		final BufferedImage wineImage = wine.getImage();
+		final Integer wineYear = wine.getYear();
+		final WineCategory category = wine.getCategory();
+		final Country country = wine.getCountry();
+
+		this.imageLabel.setIcon(wineImage == null ? null : new ImageIcon(wineImage));
 		this.articleIdTextField.setText(wine.getArticleId());
-		this.countryComboBox.setSelectedItem(wine.getCountry());
+		this.countryComboBox.setSelectedItem(country == null ? DEFAULT_COUNTRY : country);
 		this.productionAreaTextField.setText(wine.getProductionArea());
 		this.producerTextField.setText(wine.getProducer());
 		this.nameTextField.setText(wine.getName());
-		this.yearTextField.setText(String.valueOf(wine.getYear()));
-		this.categoryComboBox.setSelectedItem(wine.getCategory());
+		this.yearTextField.setText(wineYear == null ? "" : String.valueOf(wineYear));
+		this.categoryComboBox.setSelectedItem(category == null ? DEFAULT_CATEGORY : category);
 		this.descriptionText.setText(wine.getDescription());
 
 	}
@@ -210,7 +215,6 @@ public class EditWinePanel extends JPanel {
 			wine.setYear(Integer.parseInt(yearStr));
 		}
 		if (imageLabel.getIcon() != null) {
-			// TODO Clean up this class cast chaos
 			final Icon icon = imageLabel.getIcon();
 			final BufferedImage img = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
 			icon.paintIcon(this, img.getGraphics(), 0, 0);

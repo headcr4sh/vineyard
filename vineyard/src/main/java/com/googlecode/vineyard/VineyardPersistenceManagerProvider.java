@@ -33,10 +33,10 @@ public class VineyardPersistenceManagerProvider implements Provider<PersistenceM
 	@Inject
 	protected void postConstruct() {
 
-		final JDOEnhancer enhancer = JDOHelper.getEnhancer();
-		enhancer.setVerbose(true);
-		enhancer.addPersistenceUnit("vineyard");
-		enhancer.enhance();
+//		final JDOEnhancer enhancer = JDOHelper.getEnhancer();
+//		enhancer.setVerbose(true);
+//		enhancer.addPersistenceUnit("vineyard");
+//		enhancer.enhance();
 
 		try {
 			dbFile = new File(cfg.getStorageHome(), "wines.db4o");

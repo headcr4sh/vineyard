@@ -40,7 +40,11 @@ public class MainFrame extends JFrame {
 	}
 
 	public void setMainComponent(final JComponent component) {
-		this.getContentPane().add(BorderLayout.CENTER, component);
+		this.getContentPane().add(component, BorderLayout.CENTER);
+	}
+
+	public void setStatusBar(final JComponent component) {
+		this.getContentPane().add(component, BorderLayout.SOUTH);
 	}
 
 }
