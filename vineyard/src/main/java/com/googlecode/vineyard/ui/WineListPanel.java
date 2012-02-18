@@ -94,6 +94,7 @@ public class WineListPanel extends JPanel implements VineyardApp.Listener {
 		yearColumn.setMaxWidth(60); // FIXME Calculate width correctly!
 		yearColumn.setResizable(false);
 		yearColumn.setCellRenderer(cellRenderer);
+		ratingColumn.setPreferredWidth(StarRatingPanel.DEFAULT_NUM_STARS * 16);
 		ratingColumn.setMaxWidth(StarRatingPanel.DEFAULT_NUM_STARS * 16);
 		ratingColumn.setResizable(false);
 		ratingColumn.setCellRenderer(starRatingCellRenderer);

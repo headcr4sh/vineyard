@@ -26,4 +26,11 @@ public class WineRatingTableCellEditor extends StarRatingTableCellEditor {
 		return 0;
 	}
 
+	@Override
+	protected void updateRating(Object value, int rating) {
+		if (value instanceof Wine) {
+			((Wine) value).getRating().setTaste(Integer.valueOf(rating));
+		}
+	}
+
 }
