@@ -1,5 +1,6 @@
 package com.googlecode.vineyard.ui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -20,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swingx.StarRatingPanel;
@@ -95,6 +97,10 @@ public class EditWinePanel extends JPanel {
 
 		// Construct UI components
 		imageLabel = new JLabel();
+		imageLabel.setOpaque(true);
+		imageLabel.setBackground(Color.WHITE);
+		imageLabel.setVerticalAlignment(SwingConstants.CENTER);
+		imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		setImageButton = new JButton();
 		setImageButton.putClientProperty("JComponent.sizeVariant", "mini");
 		setImageButton.putClientProperty("JButton.buttonType", "textured");
