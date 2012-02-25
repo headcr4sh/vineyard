@@ -3,8 +3,6 @@ package com.googlecode.vineyard.ui;
 import java.awt.Component;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
-import javax.swing.Icon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -174,26 +172,31 @@ public class WineListPanel extends JPanel implements VineyardApp.Listener {
 			switch (column) {
 			case CATEGORY_INDEX:
 				setIcon(iconCache.getIcon(wine.getCategory()));
+				setIconTextGap(0);
 				setHorizontalAlignment(SwingConstants.CENTER);
 				setText(null);
 				break;
 			case NAME_INDEX:
 				setIcon(null);
+				setIconTextGap(0);
 				setHorizontalAlignment(SwingConstants.LEADING);
 				setText(wine.getName());
 				break;
 			case PRODUCER_INDEX:
 				setIcon(null);
+				setIconTextGap(0);
 				setHorizontalAlignment(SwingConstants.LEADING);
 				setText(wine.getProducer());
 				break;
 			case COUNTRY_INDEX:
-				setIcon(null);
+				setIcon(iconCache.getIcon(wine.getCountry()));
+				setIconTextGap(8);
 				setHorizontalAlignment(SwingConstants.LEADING);
 				setText(wine.getCountry().getName());
 				break;
 			case YEAR_INDEX:
 				setIcon(null);
+				setIconTextGap(0);
 				setHorizontalAlignment(SwingConstants.LEADING);
 				setText(String.valueOf(wine.getYear()));
 				break;
@@ -243,7 +246,7 @@ public class WineListPanel extends JPanel implements VineyardApp.Listener {
 				removeWineAction.setWine(wine);
 			}
 		}
-		
+
 	}
 
 }
