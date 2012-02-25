@@ -16,7 +16,7 @@ import javax.jdo.annotations.PrimaryKey;
 public class Rating {
 
 	/** Property Changes Support */
-	private final PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
+	private final PropertyChangeSupport changeSupport;
 
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
@@ -24,6 +24,12 @@ public class Rating {
 
 	@Persistent private Integer taste;
 
+
+	// c-tor
+	public Rating() {
+		super();
+		changeSupport = new PropertyChangeSupport(this);
+	}
 
 	// ---- GETTERS AND SETTERS ------------------------------------------------
 

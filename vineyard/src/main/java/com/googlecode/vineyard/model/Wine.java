@@ -31,7 +31,7 @@ public class Wine implements Comparable<Wine> {
 
 	/** Property Changes Support */
 	@NotPersistent
-	private final PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
+	private final PropertyChangeSupport changeSupport;
 
 
 	@PrimaryKey
@@ -53,6 +53,14 @@ public class Wine implements Comparable<Wine> {
 	@Persistent private Rating rating;
 
 	@NotPersistent private transient BufferedImage image;
+
+
+	// c-tor
+	public Wine() {
+		super();
+		changeSupport = new PropertyChangeSupport(this);
+	}
+
 
 	@Override
 	public String toString() {
