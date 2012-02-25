@@ -41,3 +41,6 @@ bin/
 
 # Maven 'target' output directory
 target/
+
+# Java Heap Dumps / crash files
+hs_err_pid*.log
