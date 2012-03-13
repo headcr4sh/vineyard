@@ -54,8 +54,7 @@ public abstract class StarRatingTableCellEditor extends AbstractCellEditor imple
 
 		this.value = value;
 
-		final Color bgColor = UIManager.getColor("Table.selectionBackground");
-		starRatingPanel.setBackground(bgColor);
+		starRatingPanel.setBackground(table.getSelectionBackground());
 		starRatingPanel.setSelected(getRating(value));
 		return starRatingPanel;
 	}
